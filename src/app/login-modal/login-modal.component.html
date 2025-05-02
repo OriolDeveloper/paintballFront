@@ -1,0 +1,54 @@
+<div
+  *ngIf="show"
+  class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50"
+>
+  <div class="bg-white p-6 rounded-lg shadow-lg w-full max-w-sm">
+    <!-- Tabs -->
+    <div class="flex mb-4 border-b border-gray-200">
+      <button
+        (click)="switchTab('login')"
+        [ngClass]="selectedTab === 'login' ? 'border-b-2 border-yellow-500 text-yellow-600' : 'text-gray-500'"
+        class="flex-1 py-2 text-center font-semibold"
+      >
+        Iniciar sesión
+      </button>
+      <button
+        (click)="switchTab('register')"
+        [ngClass]="selectedTab === 'register' ? 'border-b-2 border-yellow-500 text-yellow-600' : 'text-gray-500'"
+        class="flex-1 py-2 text-center font-semibold"
+      >
+        Registro
+      </button>
+    </div>
+
+    <!-- Login Form -->
+    <form *ngIf="selectedTab === 'login'">
+      <input type="email" placeholder="Email" class="w-full mb-3 p-2 border rounded" />
+      <input type="password" placeholder="Contraseña" class="w-full mb-3 p-2 border rounded" />
+      <div class="flex justify-between items-center">
+        <button type="submit" class="bg-yellow-500 hover:bg-yellow-600 text-black font-semibold px-4 py-2 rounded">
+          Entrar
+        </button>
+        <button type="button" (click)="closeModal()" class="text-sm text-gray-500 hover:underline">
+          Cancelar
+        </button>
+      </div>
+    </form>
+
+    <!-- Registro Form -->
+    <form *ngIf="selectedTab === 'register'">
+      <input type="text" placeholder="Nombre de usuario" class="w-full mb-3 p-2 border rounded" />
+      <input type="email" placeholder="Email" class="w-full mb-3 p-2 border rounded" />
+      <input type="password" placeholder="Contraseña" class="w-full mb-3 p-2 border rounded" />
+      <input type="password" placeholder="Confirmar contraseña" class="w-full mb-3 p-2 border rounded" />
+      <div class="flex justify-between items-center">
+        <button type="submit" class="bg-yellow-500 hover:bg-yellow-600 text-black font-semibold px-4 py-2 rounded">
+          Registrarse
+        </button>
+        <button type="button" (click)="closeModal()" class="text-sm text-gray-500 hover:underline">
+          Cancelar
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

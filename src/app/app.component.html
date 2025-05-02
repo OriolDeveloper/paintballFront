@@ -1,0 +1,124 @@
+<div class="min-h-screen flex flex-col">
+  <nav class="w-full top-0 z-50 backdrop-blur-lg bg-principalCustom shadow-lg sticky transition-all duration-300">
+
+  <div class="max-w-10xl mx-auto px sm:px-6 lg:px-8">
+    <div class="flex justify-between h-16 items-center">
+      <!-- Botón Desplegable mobile -->
+      <button (click)="toggleMenu()"
+        class="lg:hidden lg:ml-auto flex flex-col lg:flex-row gap-2 px-4 py-2 hover:text-white focus:outline-none"
+        aria-label="Toggle menu">
+        <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path *ngIf="!isOpen" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M4 6h16M4 12h16M4 18h16" />
+          <path *ngIf="isOpen" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+      <!-- Logo-->
+      <div class="absolute left-1/2 -translate-x-1/2 lg:static lg:translate-x-0 lg:left-autor">
+        <div class="flex-shrink-0 text-xl font-bold w-max">
+          <img
+            src="https://st5.depositphotos.com/2544079/66276/v/450/depositphotos_662769366-stock-illustration-soldier-automatic-weapon-helmet-paintball.jpg"
+            alt="Logo" class="h-12 w-auto" />
+        </div>
+      </div>
+
+      <!--Boton login mobile-->
+      <button (click)="openLoginModal()"
+        class="lg:hidden hover:bg-yellow-500 text-black font-semibold px-4 py-2 rounded-lg transition duration-200 ml-auto mr-2">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+          stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round"
+            d="M5.121 17.804A9 9 0 1117.804 5.121M15 12h.01M9 12h.01M12 15h.01" />
+        </svg>
+      </button>
+
+      <div class="transition-all duration-300 ease-in-out transform origin-top
+           lg:flex lg:items-center lg:w-full lg:items-center
+           absolute lg:static top-16 left-0 w-full lg:w-auto
+           bg-principalCustom lg:bg-transparent" [ngClass]="{
+      'scale-y-100 opacity-100 visible': isOpen,
+      'scale-y-0 opacity-0 invisible': !isOpen,
+      'lg:flex': true,
+      'lg:visible lg:opacity-100 lg:scale-y-100': true
+    }">
+
+        <ul class="flex flex-col text-xl lg:text-lg lg:flex-row lg:space-x-6 justify-center w-full px-4">
+          <li><a [routerLink]="'/'" class="block px-4 py-2 hover:text-terciaryCustom">Inicio</a></li>
+          <li><a [routerLink]="'/noticias'" class="block px-4 py-2 hover:text-terciaryCustom">Noticias</a></li>
+          <li><a [routerLink]="'/'" class="block px-4 py-2 hover:text-terciaryCustom">Foro Comunidad</a></li>
+          <li><a [routerLink]="'/'" class="block px-4 py-2 hover:text-terciaryCustom">Contacto</a></li>
+        </ul>
+
+
+        <div class="flex flex-col lg:flex-row gap-2 px-4 py-2 lg:absolute lg:right-0 lg:top-1/2 lg:-translate-y-1/2">
+          <button (click)="openLoginModal()"
+            class="hidden lg:flex items-center gap-2 bg-yellow-500 hover:text-terciaryCustom hover:bg-yellow-600 text-black font-semibold px-4 py-2 rounded-lg transition duration-200">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+              stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                d="M5.121 17.804A9 9 0 1117.804 5.121M15 12h.01M9 12h.01M12 15h.01" />
+            </svg>
+            <!--ngIf si el usuario esta conectado o no saldría 'Mi Perfil'-->
+            Entrar / Unirse
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!--Login Modal-->
+<div *ngIf="showLoginModal" class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
+  <div class="bg-white p-6 rounded-lg shadow-lg w-full max-w-sm">
+    <!-- Tabs -->
+    <div class="flex mb-4 border-b border-gray-200">
+      <button (click)="selectedTab = 'login'"
+        [ngClass]="selectedTab === 'login' ? 'border-b-2 border-yellow-500 text-yellow-600' : 'text-gray-500'"
+        class="flex-1 py-2 text-center font-semibold">
+        Iniciar sesión
+      </button>
+      <button (click)="selectedTab = 'register'"
+        [ngClass]="selectedTab === 'register' ? 'border-b-2 border-yellow-500 text-yellow-600' : 'text-gray-500'"
+        class="flex-1 py-2 text-center font-semibold">
+        Registro
+      </button>
+    </div>
+
+    <!-- Login Modal -->
+    <form *ngIf="selectedTab === 'login'">
+      <input type="email" placeholder="Email" class="w-full mb-3 p-2 border rounded" />
+      <input type="password" placeholder="Contraseña" class="w-full mb-3 p-2 border rounded" />
+      <div class="flex justify-between items-center">
+        <button type="submit" class="bg-yellow-500 hover:bg-yellow-600 text-black font-semibold px-4 py-2 rounded">
+          Entrar
+        </button>
+        <button type="button" (click)="closeLoginModal()" class="text-sm text-gray-500 hover:underline">
+          Cancelar
+        </button>
+      </div>
+    </form>
+
+    <!-- Registro Modal -->
+    <form *ngIf="selectedTab === 'register'">
+      <input type="text" placeholder="Nombre de usuario" class="w-full mb-3 p-2 border rounded" />
+      <input type="email" placeholder="Email" class="w-full mb-3 p-2 border rounded" />
+      <input type="password" placeholder="Contraseña" class="w-full mb-3 p-2 border rounded" />
+      <input type="password" placeholder="Confirmar contraseña" class="w-full mb-3 p-2 border rounded" />
+      <div class="flex justify-between items-center">
+        <button type="submit" class="bg-yellow-500 hover:bg-yellow-600 text-black font-semibold px-4 py-2 rounded">
+          Registrarse
+        </button>
+        <button type="button" (click)="closeLoginModal()" class="text-sm text-gray-500 hover:underline">
+          Cancelar
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<main class="flex flex-1 justify-center my-4 px-4 text-lg">
+  <router-outlet></router-outlet>
+</main>
+
+</div>
