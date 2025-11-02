@@ -5,13 +5,12 @@ import { NewsService } from '../service/news.service';
 import { NewsParameters } from '../model/NewsParameters';
 
 @Injectable({ providedIn: 'root' })
-export class NewsResolver implements Resolve<NewsParameters | null> {
-  constructor(private newsService: NewsService, private router: Router) {}
+export class NewsResolver implements Resolve<NewsParameters[] | null> {
+  constructor(private newsService: NewsService, private router: Router) { }
 
 
-  resolve(route: ActivatedRouteSnapshot): NewsParameters | null {
-    const id = Number(route.paramMap.get('id'));
-    const news = this.newsService.getNewsId(id);
+  resolve(route: ActivatedRouteSnapshot): NewsParameters[] | null {
+    const news = this.newsService.getNews();
 
     if (news === undefined) {
       this.router.navigate(['/noticias']);

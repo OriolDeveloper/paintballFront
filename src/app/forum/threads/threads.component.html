@@ -1,0 +1,8 @@
+<div *ngIf="thread">
+    <h2>{{ thread.title }}</h2>
+    <p>{{ thread.description }}</p>
+    <a [routerLink]="['/foro', idThreads, thread.id]"
+        class="text-indigo-600 hover:text-indigo-800 font-medium transition duration-300 transform hover:scale-110 hover:animate-pulse">
+        Leer más →
+    </a>
+</div>

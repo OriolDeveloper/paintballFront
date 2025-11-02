@@ -15,10 +15,10 @@ export class DetailNewsComponent implements OnInit {
 
   detailNews = {} as NewsParameters;
 
-  constructor(private route: ActivatedRoute, private newsService: NewsService) {}
+  constructor(private route: ActivatedRoute, private newsService: NewsService) { }
 
   ngOnInit() {
-    const id = Number(this.route.snapshot.paramMap.get('id'));
+    const id = Number(this.route.snapshot.paramMap.get('idNoticia'));
     this.detailNews = this.newsService.getNewsId(id)!;
   }
 }
