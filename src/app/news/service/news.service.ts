@@ -19,7 +19,8 @@ export class NewsService {
       imageBytes: 'https://st5.depositphotos.com/2544079/66276/v/450/depositphotos_662769366-stock-illustration-soldier-automatic-weapon-helmet-paintball.jpg',
       dateCreated: '2023-10-01',
       dateModify: '2023-10-01',
-      category: 'Eventos'
+      category: 'Eventos',
+      featured: true
     },
     {
       id: 2,
@@ -28,9 +29,10 @@ export class NewsService {
       description: '¡No te pierdas el torneo este fin de semana con premios increíbles!',
       imageName: 'noName',
       imageBytes: 'https://st5.depositphotos.com/2544079/66276/v/450/depositphotos_662769366-stock-illustration-soldier-automatic-weapon-helmet-paintball.jpg',
-      dateCreated: '2023-10-01',      
+      dateCreated: '2023-10-01',
       dateModify: '2023-10-01',
-      category: 'Eventos'
+      category: 'Eventos',
+      featured: false
     },
     {
       id: 3,
@@ -39,10 +41,24 @@ export class NewsService {
       description: 'Aprendé tácticas y estrategias para dominar en el campo.',
       imageName: 'noName',
       imageBytes: 'https://st5.depositphotos.com/2544079/66276/v/450/depositphotos_662769366-stock-illustration-soldier-automatic-weapon-helmet-paintball.jpg',
-      dateCreated: '2023-10-01',      
+      dateCreated: '2023-10-01',
       dateModify: '2023-10-01',
-      category: 'Eventos'   
-       
+      category: 'Eventos',
+      featured: false
+
+    },
+    {
+      id: 3,
+      name: 'Tips de Entrenamiento',
+      title: 'Tips de Entrenamiento',
+      description: 'Aprendé tácticas y estrategias para dominar en el campo.',
+      imageName: 'noName',
+      imageBytes: 'https://st5.depositphotos.com/2544079/66276/v/450/depositphotos_662769366-stock-illustration-soldier-automatic-weapon-helmet-paintball.jpg',
+      dateCreated: '2023-10-01',
+      dateModify: '2023-10-01',
+      category: 'Eventos',
+      featured: false
+
     },
   ];
 
@@ -58,7 +74,7 @@ export class NewsService {
     this.setNews(data);
   }
 
-  clearNews(){
+  clearNews() {
     this.news = [];
   }
 
