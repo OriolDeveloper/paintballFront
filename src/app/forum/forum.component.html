@@ -1,19 +1,8 @@
-<div class="container mx-auto px-4 py-8">
-    <div class="grid md:grid-cols-[12rem_auto_12rem] justify-stretch text-center">
-        <div class="order-1 md:order-2">
-            <h1 class="text-3xl font-bold mb-4">Últimas Noticias</h1>
-        </div>
-        <div class="order-2 md:order-1 flex justify-center md:justify-start">
-            <button
-                class="group flex justify-center gap-2 text-md font-bold mb-4 text-indigo-600 px-4 py-2 rounded-lg transition duration-200 hover:text-green-400">
-                <fa-icon class="transition-transform duration-400 group-hover:text-green-400 group-hover:animate-bounce"
-                    [icon]="faPlus">
-                </fa-icon>
-                <span class="group-hover:text-green-400 group-hover:animate-pulse">Agregar noticia</span>
-            </button>
-        </div>
-        <div class="order-3"></div>
-    </div>
+<app-header [title]="'Siente la adrenalina del paintball'"
+    [description]="'¡Disfruta de la sección de foro de nuestra comunidad!'">
+</app-header>
+
+<body class="max-w-6xl mx-auto py-8">
     <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
         <div *ngFor="let noticia of news"
             class="group bg-white shadow-md rounded-2xl overflow-hidden hover:shadow-xl transition">
@@ -45,4 +34,4 @@
             </div>
         </div>
     </div>
-</div>
+</body>

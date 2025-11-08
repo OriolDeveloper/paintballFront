@@ -5,10 +5,11 @@ import { faEdit, faPlus, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { ForumService } from './service/forum.service';
 import { Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { HeaderComponent } from '../common/header/header.component';
 
 @Component({
   selector: 'app-forum',
-  imports: [CommonModule, RouterModule, FontAwesomeModule],
+  imports: [CommonModule, RouterModule, FontAwesomeModule, HeaderComponent],
   templateUrl: './forum.component.html',
   styleUrl: './forum.component.scss'
 })

@@ -1,37 +1,43 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
-import { NavigationEnd, NavigationStart, Router, RouterModule } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { NavigationEnd, Router, RouterModule } from '@angular/router';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { faMoon, faSun } from '@fortawesome/free-solid-svg-icons';
+import { ThemeService } from './common/service/theme.service';
 import { NewsService } from './news/service/news.service';
-import { NewsParameters } from './news/model/NewsParameters';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
   standalone: true,
-  imports: [RouterModule,CommonModule]
+  imports: [RouterModule, CommonModule, FontAwesomeModule]
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   isOpen = false;
   showLoginModal = false;
   selectedTab: 'login' | 'register' = 'login';
+  faMoon = faMoon;
+  faSun = faSun;
+  darkMode$: any;
 
-  constructor(private router: Router, private newsService: NewsService) {
+  constructor(
+    private router: Router,
+    private newsService: NewsService,
+    private themeService: ThemeService
+  ) {
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
-        this.closeLoginModal(); // Oculta modal
-        this.isOpen = false; // Cierra menú
-        this.selectedTab = 'login'; // Reinicia tab
+        this.closeLoginModal();
+        this.isOpen = false;
+        this.selectedTab = 'login';
         window.scrollTo(0, 0);
       }
     });
   }
 
   ngOnInit(): void {
-    setTimeout(() => {
-      console.log('isOpen:', this.isOpen);
-      console.log('showLoginModal:', this.showLoginModal);
-    }, 1000);
+
   }
 
   toggleMenu() {
@@ -42,8 +48,13 @@ export class AppComponent {
     this.showLoginModal = true;
     this.selectedTab = 'login';
   }
-  
+
   closeLoginModal(): void {
     this.showLoginModal = false;
   }
+
+  toggleTheme(): void {
+    this.themeService.toggleDarkMode();
+  }
+
 }

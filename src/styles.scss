@@ -2,13 +2,142 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+  :root {
+    --transition-color: color 0.2s ease-in-out;
+    --transition-bg: background-color 0.2s ease-in-out;
+  }
+
+  /* Transiciones suaves al cambiar de modo */
+  * {
+    @apply transition-colors duration-200;
+  }
+
+  body {
+    /* Neutrales - Fondo y texto por defecto */
+    @apply bg-military-neutral text-military-neutral dark:bg-military-neutral-dark dark:text-military-neutral-dark;
+  }
+
+  /* Rojos */
+  .bg-red {
+    @apply bg-military-red dark:bg-military-red-dark;
+  }
+
+  .text-red {
+    @apply text-military-red dark:text-military-red-dark;
+  }
+
+  /* Naranjas */
+  .bg-orange {
+    @apply bg-military-orange dark:bg-military-orange-dark;
+  }
+
+  .text-orange {
+    @apply text-military-orange dark:text-military-orange-dark;
+  }
+
+  /* Azules */
+  .bg-blue {
+    @apply bg-military-blue dark:bg-military-blue-dark;
+  }
+
+  .text-blue {
+    @apply text-military-blue dark:text-military-blue-dark;
+  }
+
+  /* Verdes */
+  .bg-green {
+    @apply bg-military-green dark:bg-military-green-dark;
+  }
+
+  .text-green {
+    @apply text-military-green dark:text-military-green-dark;
+  }
+
+  /* Amarillos */
+  .bg-yellow {
+    @apply bg-military-yellow dark:bg-military-yellow-dark;
+  }
+
+  .text-yellow {
+    @apply text-military-yellow dark:text-military-yellow-dark;
+  }
+}
+
+@layer components {
+
+  .nav-glass {
+    @apply border-2 border-white/20 dark:border-black/30 shadow-sm;
+  }
+
+  .nav-link {
+    @apply px-4 py-2 text-white transition transform duration-300 ease-out hover:-translate-y-0.5 hover:scale-[1.02] hover:shadow-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-yellow-400;
+  }
+
+  /* Neon glow accent for icons/buttons */
+  .neon-glow {
+    transition: box-shadow .3s ease, transform .3s ease;
+  }
+
+  .neon-glow:hover {
+    box-shadow: 0 6px 20px rgba(0, 200, 255, 0.12), 0 0 12px rgba(0, 200, 255, 0.12);
+    transform: scale(1.05);
+  }
+
+  .dark .neon-glow:hover {
+    box-shadow: 0 8px 28px rgba(0, 200, 255, 0.18), 0 0 18px rgba(0, 200, 255, 0.14);
+  }
+
+  /* Underline slide pseudo-element */
+  .underline-slide {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .underline-slide::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 6px;
+    height: 2px;
+    width: 0;
+    background: #FFD400;
+    transition: width .28s ease-out;
+  }
+
+  .underline-slide:hover::after {
+    width: 100%;
+  }
+
+  .dark .underline-slide::after {
+    background: #997F00;
+  }
+
+  .pill-btn {
+    @apply px-3 lg:px-4 py-2 rounded-lg bg-orange text-white transition-all duration-200 hover:scale-105 hover:shadow-2xl active:translate-y-0.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-yellow-400;
+  }
+
+  .theme-icon {
+    @apply transition-all duration-300;
+  }
+
+  .theme-icon:hover {
+    transform: rotate(12deg) scale(1.08);
+  }
+}
+
+
+
+
 * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-  }
-  
-  html, body {
-    height: 100%;
-    overflow: auto; /* Quitamos la barra de scroll automatica */
-  }
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  height: 100%;
+  overflow: auto;
+  /* Quitamos la barra de scroll automatica */
+}
