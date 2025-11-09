@@ -7,5 +7,5 @@ export interface ThreadsParameters {
   imageBytes: any;
   dateCreated: any;
   dateModify: any;
-  category: any;
+  categoryThread: any;
 }

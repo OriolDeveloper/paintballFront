@@ -19,7 +19,7 @@ export class ThreadsService {
       imageBytes: 'https://st5.depositphotos.com/2544079/66276/v/450/depositphotos_662769366-stock-illustration-soldier-automatic-weapon-helmet-paintball.jpg',
       dateCreated: '2023-10-01',
       dateModify: '2023-10-01',
-      category: 'Eventos'
+      categoryThread: 'Eventos'
     },
     {
       id: 2,
@@ -30,7 +30,7 @@ export class ThreadsService {
       imageBytes: 'https://st5.depositphotos.com/2544079/66276/v/450/depositphotos_662769366-stock-illustration-soldier-automatic-weapon-helmet-paintball.jpg',
       dateCreated: '2023-10-01',
       dateModify: '2023-10-01',
-      category: 'Eventos'
+      categoryThread: 'Eventos'
     },
     {
       id: 3,
@@ -41,7 +41,7 @@ export class ThreadsService {
       imageBytes: 'https://st5.depositphotos.com/2544079/66276/v/450/depositphotos_662769366-stock-illustration-soldier-automatic-weapon-helmet-paintball.jpg',
       dateCreated: '2023-10-01',
       dateModify: '2023-10-01',
-      category: 'Eventos'
+      categoryThread: 'Eventos'
 
     },
   ];

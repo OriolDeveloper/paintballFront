@@ -14,6 +14,7 @@ import { NewsService } from './news/service/news.service';
   imports: [RouterModule, CommonModule, FontAwesomeModule]
 })
 export class AppComponent implements OnInit {
+  isScrolled = false;
   isOpen = false;
   showLoginModal = false;
   selectedTab: 'login' | 'register' = 'login';
@@ -21,10 +22,7 @@ export class AppComponent implements OnInit {
   faSun = faSun;
   darkMode$: any;
 
-  constructor(
-    private router: Router,
-    private newsService: NewsService,
-    private themeService: ThemeService
+  constructor(private router: Router, private newsService: NewsService, private themeService: ThemeService
   ) {
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
@@ -37,8 +35,15 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
+    document.addEventListener('scroll', this.onScroll, true);
   }
+
+
+  onScroll = (): void => {
+    const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+    this.isScrolled = scrollTop > 20;
+  };
+
 
   toggleMenu() {
     this.isOpen = !this.isOpen;

@@ -62,6 +62,15 @@
   .text-yellow {
     @apply text-military-yellow dark:text-military-yellow-dark;
   }
+
+  /* Negro */
+  .bg-navbar {
+    @apply bg-military-blackdark dark:bg-military-blackdark-dark;
+  }
+
+  .text-navbar {
+    @apply text-military-blackdark dark:text-military-blackdark-dark;
+  }
 }
 
 @layer components {

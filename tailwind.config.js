@@ -17,7 +17,7 @@ module.exports = {
             dark: '#993300'
           },
           blue: {
-            DEFAULT: '#00C8FF',
+            DEFAULT: '#5dc1b9',
             dark: '#003366'
           },
           green: {
@@ -28,9 +28,9 @@ module.exports = {
             DEFAULT: '#FFD400',
             dark: '#997F00'
           },
-          black: {
-            DEFAULT: '#000000',
-            dark: '#000000'
+          blackdark: {
+            DEFAULT: '#1A1A1A',
+            dark: '#f8f5d5ff'
           },
           neutral: {
             DEFAULT: '#f8f5d5ff',
