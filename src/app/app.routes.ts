@@ -10,7 +10,7 @@ import { ThreadComponent } from './forum/threads/thread/thread.component';
 import { ThreadsResolver } from './forum/threads/resolver/threads.resolver';
 
 export const routes: Routes = [
-  { path: 'home', component: HomeComponent },
+  { path: 'home', component: HomeComponent, data: { noFooter: true } },
   { path: 'noticias', component: NewsComponent },
   {
     path: 'noticias/:idNoticia', component: DetailNewsComponent, resolve: {

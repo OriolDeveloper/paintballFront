@@ -18,6 +18,19 @@
     @apply bg-military-neutral text-military-neutral dark:bg-military-neutral-dark dark:text-military-neutral-dark;
   }
 
+  /* Neutral */
+  .bg-neutral {
+    @apply bg-military-neutral dark:bg-military-neutral-dark;
+  }
+
+  .text-neutral {
+    @apply text-military-neutral dark:text-military-neutral-dark;
+  }
+
+  .text-red {
+    @apply text-military-neutral dark:text-military-neutral-dark;
+  }
+
   /* Rojos */
   .bg-red {
     @apply bg-military-red dark:bg-military-red-dark;
@@ -27,6 +40,10 @@
     @apply text-military-red dark:text-military-red-dark;
   }
 
+  .border-red {
+    @apply border-military-red dark:border-military-red-dark;
+  }
+
   /* Naranjas */
   .bg-orange {
     @apply bg-military-orange dark:bg-military-orange-dark;
@@ -34,6 +51,10 @@
 
   .text-orange {
     @apply text-military-orange dark:text-military-orange-dark;
+  }
+
+  .border-orange {
+    @apply border-military-orange dark:border-military-orange-dark;
   }
 
   /* Azules */
@@ -54,6 +75,11 @@
     @apply text-military-green dark:text-military-green-dark;
   }
 
+
+  .border-green {
+    @apply border-military-green dark:border-military-green-dark;
+  }
+
   /* Amarillos */
   .bg-yellow {
     @apply bg-military-yellow dark:bg-military-yellow-dark;
@@ -61,6 +87,10 @@
 
   .text-yellow {
     @apply text-military-yellow dark:text-military-yellow-dark;
+  }
+
+  .border-yellow {
+    @apply border-military-yellow dark:border-military-yellow-dark;
   }
 
   /* Negro */
@@ -100,7 +130,7 @@
   /* Underline slide pseudo-element */
   .underline-slide {
     position: relative;
-    overflow: hidden;
+
   }
 
   .underline-slide::after {
@@ -135,18 +165,8 @@
   }
 }
 
-
-
-
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-}
-
-html,
-body {
-  height: 100%;
-  overflow: auto;
-  /* Quitamos la barra de scroll automatica */
 }

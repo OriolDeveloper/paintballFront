@@ -9,7 +9,41 @@ export class ThreadsService {
   constructor() { }
 
   //Hacer este objeto global  y acceder a el desde los distintos componentes.
-  private news: ThreadsParameters[] = [
+  private thread: ThreadsParameters[] = [
+    {
+      id: 1,
+      name: 'Gran Evento de Paintball',
+      title: 'Gran Evento de Paintball',
+      description: '¡No te pierdas el torneo este fin de semana con premios increíbles!',
+      imageName: 'noName',
+      imageBytes: 'https://st5.depositphotos.com/2544079/66276/v/450/depositphotos_662769366-stock-illustration-soldier-automatic-weapon-helmet-paintball.jpg',
+      dateCreated: '2023-10-01',
+      dateModify: '2023-10-01',
+      categoryThread: 'Eventos'
+    },
+    {
+      id: 2,
+      name: 'Nueva Tienda Abierta',
+      title: 'Nueva Tienda Abierta',
+      description: '¡No te pierdas el torneo este fin de semana con premios increíbles!',
+      imageName: 'noName',
+      imageBytes: 'https://st5.depositphotos.com/2544079/66276/v/450/depositphotos_662769366-stock-illustration-soldier-automatic-weapon-helmet-paintball.jpg',
+      dateCreated: '2023-10-01',
+      dateModify: '2023-10-01',
+      categoryThread: 'Eventos'
+    },
+    {
+      id: 3,
+      name: 'Tips de Entrenamiento',
+      title: 'Tips de Entrenamiento',
+      description: 'Aprendé tácticas y estrategias para dominar en el campo.',
+      imageName: 'noName',
+      imageBytes: 'https://st5.depositphotos.com/2544079/66276/v/450/depositphotos_662769366-stock-illustration-soldier-automatic-weapon-helmet-paintball.jpg',
+      dateCreated: '2023-10-01',
+      dateModify: '2023-10-01',
+      categoryThread: 'Eventos'
+
+    },
     {
       id: 1,
       name: 'Gran Evento de Paintball',
@@ -47,11 +81,11 @@ export class ThreadsService {
   ];
 
   setNews(data: ThreadsParameters[]) {
-    this.news = data;
+    this.thread = data;
   }
 
-  getNews(): ThreadsParameters[] {
-    return this.news;
+  getThreads(): ThreadsParameters[] {
+    return this.thread;
   }
 
   updateNews(data: ThreadsParameters[]) {
@@ -59,10 +93,10 @@ export class ThreadsService {
   }
 
   clearNews() {
-    this.news = [];
+    this.thread = [];
   }
 
-  getNewsId(id: number) {
-    return this.news.find(n => n.id === id);
+  getThreadId(id: number) {
+    return this.thread.find(n => n.id === id);
   }
 }

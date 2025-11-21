@@ -8,5 +8,5 @@ export interface NewsParameters {
   dateCreated: any;
   dateModify: any;
   category: any;
-  featured: Boolean;
+  isFeatured: Boolean;
 }

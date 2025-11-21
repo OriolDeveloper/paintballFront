@@ -1,63 +1,133 @@
 import { CommonModule } from '@angular/common';
 import { Component, HostListener, OnInit } from '@angular/core';
-import { NewsService } from './service/news.service';
 import { Router, RouterModule } from '@angular/router';
-import { NewsParameters } from './model/NewsParameters';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { faTrash, faEdit, faPlus } from '@fortawesome/free-solid-svg-icons';
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
+import { FormsModule } from '@angular/forms';
 import { HeaderComponent } from '../common/header/header.component';
-
+import { NewsService } from './service/news.service';
+import { NewsParameters } from './model/NewsParameters';
+import { AppNewsGridAComponent } from './app-news-grid/app-news-grid-a/app-news-grid-a.component';
+import { AppNewsGridBComponent } from './app-news-grid/app-news-grid-b/app-news-grid-b.component';
+import { AuthenticationService, UserDto } from '../login-modal/service/authentication.service';
+import { CreateNewComponent } from "./create-news/create-new/create-new.component";
 
 @Component({
   selector: 'app-news',
-  imports: [CommonModule, RouterModule, FontAwesomeModule, HeaderComponent],
+  standalone: true,
   templateUrl: './news.component.html',
   styleUrl: './news.component.scss',
-  standalone: true
+  imports: [CommonModule, RouterModule, FontAwesomeModule, HeaderComponent, AppNewsGridAComponent, AppNewsGridBComponent, FormsModule, CreateNewComponent]
 })
 export class NewsComponent implements OnInit {
-  news: NewsParameters[] = [];
-  newFeatured: NewsParameters[] = [];
-  faTrash = faTrash;
-  faEdit = faEdit;
+  userDto!: UserDto | null;
   faPlus = faPlus;
-  fillerCards: number[] = [];
+  isShowCreateNewModal = false;
+  categorias = ['Terreno', 'Tacticas', 'Equipamiento'];
+  selectedCategory = '';
+  selectedDate = '';
 
-  constructor(private newsService: NewsService, private router: Router) {
+  news: NewsParameters[] = [];
+  filteredNews: NewsParameters[] = [];
 
-  }
+  blocks: NewsParameters[][] = [];
 
-  @HostListener('window:resize', ['$event'])
-  onResize() {
-    this.fillerCards = this.getFillerCards(this.news.length);
-  }
+  pageSize = 13;
+  page = 0;
 
-  ngOnInit(): void {
-    //Llamada al back para sacar la lista de Noticias
+  constructor(private newsService: NewsService, private router: Router, private authService: AuthenticationService) { }
+
+  ngOnInit() {
     this.news = this.newsService.getNews();
-    this.newFeatured = this.news.filter(noticia => noticia.featured === true);
-    this.fillerCards = this.getFillerCards(this.news.length);
+    this.loadMore();
+    this.authService.user$.subscribe(user => {
+      this.userDto = user;
+    });
+  }
+
+  //Se ejecuta cuando accedemos a el desde el html
+  get finished(): boolean {
+    const list = this.filteredNews.length ? this.filteredNews : this.news;
+    return (this.page * this.pageSize) >= list.length;
+  }
+
+
+  loadMore() {
+    //Si viene vacio sacamos todas las noticias
+    const list = this.filteredNews.length ? this.filteredNews : this.news;
+
+    const start = this.page * this.pageSize;
+    const end = start + this.pageSize;
+
+    let slice = list.slice(start, end);
+
+    if (!slice.length) return;
+
+    // añade placeholders si faltan para completar 12
+    while (slice.length < 12) {
+      slice.push(this.placeholder());
+    }
+
+    this.blocks.push(slice);
+    this.page++;
+  }
+
+  applyFilters() {
+    const catNew = this.selectedCategory.trim().toLowerCase();
+    const dateNew = this.selectedDate.trim().toLowerCase();
+
+    this.filteredNews = this.news.filter(n => {
+      const category = !catNew || n.category?.toLowerCase() === catNew;
+      const date = !dateNew || this.isInDateRange(n.dateCreated, dateNew);
+      return category && date;
+    });
+
+    this.blocks = [];
+    this.page = 0;
+    this.loadMore();
+  }
+
+  private placeholder(): NewsParameters {
+    return {
+      id: 0,
+      title: 'Proximamente',
+      description: 'Proximamente',
+      category: '',
+      imageBytes: '/assets/img/manchas.jpg',
+      dateCreated: new Date()
+    } as NewsParameters;
+  }
+
+  private isInDateRange(dateCreated: string, range: string): boolean {
+    const created = new Date(dateCreated);
+    const now = new Date();
+
+    if (range === 'today') return created.toDateString() === now.toDateString();
+
+    if (range === 'week') {
+      const s = new Date(now);
+      s.setDate(now.getDate() - 7);
+      return created >= s;
+    }
+
+    if (range === 'month') {
+      const s = new Date(now);
+      s.setMonth(now.getMonth() - 1);
+      return created >= s;
+    }
+
+    return true;
   }
 
   moreDetails(id: number) {
     this.router.navigate(['noticias/' + id]);
   }
 
-  getActiveColumns(): number {
-    const width = window.innerWidth;
-
-    if (width >= 1024) return 3;
-    if (width <= 1024 && width >= 640) return 2;
-    return 1;
+  openCreateNewModal(): void {
+    this.isShowCreateNewModal = true;
   }
 
-  getFillerCards(newsLength: number): number[] {
-    const columns = this.getActiveColumns();
-    const visibleCards = newsLength - 1; // excluyendo la destacada
-    const remainder = visibleCards % columns;
-    const fillersNeeded = remainder === 0 ? 0 : columns - remainder;
-
-    return Array(fillersNeeded).fill(0).map((_, i) => i);
+  closeCreateNewModal(): void {
+    this.isShowCreateNewModal = false;
   }
-
 }

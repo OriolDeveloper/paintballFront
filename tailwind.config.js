@@ -45,6 +45,9 @@ module.exports = {
       inter: ['Inter', 'sans-serif'],
       paintball: ['"Nosifer"', 'sans-serif'],
     },
+    fontSize: {
+      'body': ['1rem', { lineHeight: '1.45', fontWeight: '500', color: '#1A1A1A' }],
+    }
   },
   plugins: [],
 };

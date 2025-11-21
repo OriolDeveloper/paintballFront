@@ -1,0 +1,60 @@
+.hero {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    transition: height 150ms linear; // suaviza el cambio de height
+}
+
+.hero-bg {
+    position: absolute;
+    inset: 0;
+    background-image: url('/assets/img/logoPaintball.png');
+    /* o la URL que tú tengas */
+    background-size: cover;
+    background-position: center;
+    will-change: transform;
+    /* rendimiento */
+    transition: transform 200ms linear;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 0 16px;
+    will-change: transform;
+    transition: transform 120ms linear;
+    color: white;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+}
+
+.title {
+    font-size: clamp(1.8rem, 4vw, 3.2rem);
+    margin: 0;
+    font-weight: 800;
+}
+
+.subtitle {
+    margin-top: 8px;
+    font-size: clamp(1rem, 2.2vw, 1.125rem);
+    opacity: 0.95;
+}
+
+.btn-primary {
+    margin-top: 16px;
+    padding: 10px 18px;
+    border-radius: 8px;
+    background: rgba(0, 0, 0, 0.6);
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.resto {
+    background: #f9fafb;
+}

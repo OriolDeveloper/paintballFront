@@ -11,13 +11,13 @@ export class ThreadsResolver implements Resolve<ThreadsParameters | null> {
 
   resolve(route: ActivatedRouteSnapshot): ThreadsParameters | null {
     const id = Number(route.paramMap.get('idThreads'));
-    const news = this.threadsService.getNewsId(id);
+    const threads = this.threadsService.getThreadId(id);
 
-    if (news === undefined) {
+    if (threads === undefined) {
       this.router.navigate(['/foro']);
       return null;
     }
 
-    return news;
+    return threads;
   }
 }

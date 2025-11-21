@@ -1,0 +1,93 @@
+<div *ngIf="isShowLoginModal" class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
+  <div class="bg-white p-6 rounded-lg shadow-lg w-full max-w-sm">
+    <!-- Tabs -->
+    <div class="flex mb-4 border-b border-gray-200">
+      <button (click)="switchTab('login')"
+        [ngClass]="selectedTab === 'login' ? 'border-b-2 border-yellow text-orange' : 'text-black'"
+        class="flex-1 py-2 text-center font-semibold">
+        Iniciar sesión
+      </button>
+      <button (click)="switchTab('register')"
+        [ngClass]="selectedTab === 'register' ? 'border-b-2 border-yellow text-orange' : 'text-black'"
+        class="flex-1 py-2 text-center font-semibold">
+        Registro
+      </button>
+    </div>
+
+    <!-- Login Form -->
+    <form [formGroup]="formLogin" (ngSubmit)="submitForm('login')" *ngIf="selectedTab === 'login'">
+      <input formControlName="email" placeholder="Email"
+        class="w-full p-2 rounded transition-all duration-200 ease-in-out border text-black" [ngClass]="{
+        'border-green': formLoginInHtml['email'].valid && formLoginInHtml['email'].touched,
+        'border-red': formLoginInHtml['email'].invalid && formLoginInHtml['email'].touched,
+        'border-transparent': !formLoginInHtml['email'].touched
+        }" />
+      <app-error-message-form [control]="formLoginInHtml['email']"></app-error-message-form>
+
+      <input formControlName="password" placeholder="Contraseña"
+        class="w-full p-2 rounded transition-all duration-200 ease-in-out border text-black" [ngClass]="{
+    'border-green': formLoginInHtml['password'].valid && formLoginInHtml['password'].touched,
+    'border-red': formLoginInHtml['password'].invalid && formLoginInHtml['password'].touched,
+    'border-transparent': !formLoginInHtml['password'].touched
+  }" />
+      <app-error-message-form [control]="formLoginInHtml['password']"></app-error-message-form>
+
+
+      <div class="flex justify-between items-center">
+        <button [ngClass]="formLogin.invalid ? 'opacity-50' : 'opacity-100'" type="submit"
+          class="bg-yellow-500 hover:bg-yellow-600 text-black font-semibold px-4 py-2 rounded"
+          [ngClass]="formLogin.invalid ? 'opacity-50' : 'opacity-100'" [disabled]="formLogin.invalid">Entrar</button>
+        <button type="button" (click)="closeModal()" class="text-sm text-gray-500 hover:underline">
+          Cancelar
+        </button>
+      </div>
+    </form>
+
+    <!-- Registro Form -->
+    <form [formGroup]="formRegister" *ngIf="selectedTab === 'register'" (ngSubmit)="submitForm('register')">
+
+      <input formControlName="username" placeholder="Nombre"
+        class="w-full p-2 rounded transition-all duration-200 ease-in-out border text-black" [ngClass]="{
+        'border-green': formRegisterInHtml['username'].valid && formRegisterInHtml['username'].touched,
+        'border-red': formRegisterInHtml['username'].invalid && formRegisterInHtml['username'].touched,
+        'border-transparent': !formRegisterInHtml['username'].touched
+        }" />
+      <app-error-message-form [control]="formRegisterInHtml['username']"></app-error-message-form>
+
+      <input formControlName="email" placeholder="Email"
+        class="w-full p-2 rounded transition-all duration-200 ease-in-out border text-black" [ngClass]="{
+        'border-green': formRegisterInHtml['email'].valid && formRegisterInHtml['email'].touched,
+        'border-red': formRegisterInHtml['email'].invalid && formRegisterInHtml['email'].touched,
+        'border-transparent': !formRegisterInHtml['email'].touched
+        }" />
+      <app-error-message-form [control]="formRegisterInHtml['email']"></app-error-message-form>
+
+      <input formControlName="password" placeholder="Contraseña"
+        class="w-full p-2 rounded transition-all duration-200 ease-in-out border text-black" [ngClass]="{
+    'border-green': formRegisterInHtml['password'].valid && formRegisterInHtml['password'].touched,
+    'border-red': formRegisterInHtml['password'].invalid && formRegisterInHtml['password'].touched,
+    'border-transparent': !formRegisterInHtml['password'].touched
+  }" />
+      <app-error-message-form [control]="formRegisterInHtml['password']"></app-error-message-form>
+
+      <input formControlName="confirmPassword" placeholder="Confirmar Contraseña"
+        class="w-full p-2 rounded transition-all duration-200 ease-in-out border text-black" [ngClass]="{
+        'border-green': formRegisterInHtml['confirmPassword'].valid && formRegisterInHtml['confirmPassword'].touched,
+        'border-red': formRegisterInHtml['confirmPassword'].invalid && formRegisterInHtml['confirmPassword'].touched,
+        'border-transparent': !formRegisterInHtml['password'].touched
+        }" />
+      <app-error-message-form [control]="formRegisterInHtml['confirmPassword']"
+        [form]="formRegister"></app-error-message-form>
+
+      <div class="flex justify-between items-center">
+        <button type="submit" class="bg-yellow-500 hover:bg-yellow-600 text-black font-semibold px-4 py-2 rounded"
+          [ngClass]="formRegister.invalid ? 'opacity-50' : 'opacity-100'" [disabled]="formRegister.invalid">
+          Registrarse
+        </button>
+        <button type="button" (click)="closeModal()" class="text-sm text-gray-500 hover:underline">
+          Cancelar
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

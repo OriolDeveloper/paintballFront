@@ -1,37 +1,53 @@
 <app-header [title]="'Siente la adrenalina del paintball'"
-    [description]="'¡Disfruta de la sección de foro de nuestra comunidad!'">
+    [description]="'¡Disfruta de la sección de noticias de nuestra comunidad!'">
 </app-header>
 
-<body class="max-w-6xl mx-auto py-8">
-    <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-        <div *ngFor="let noticia of news"
-            class="group bg-white shadow-md rounded-2xl overflow-hidden hover:shadow-xl transition">
-            <div class="p-4 flex flex-col justify-between h-full  bg-gray-100">
-                <div class="p-2">
-                    <div>
-                        <h2 class="text-xl font-semibold text-gray-800 mb-2">{{ noticia.title }}</h2>
-                        <p class="text-gray-600 text-sm mb-4 line-clamp-3">{{ noticia.description }}</p>
-                    </div>
-                    <div class="flex justify-between items-center mt-4">
-                        <a [routerLink]="['/foro', noticia.id]"
-                            class="text-indigo-600 hover:text-indigo-800 font-medium transition duration-300 transform hover:scale-110 hover:animate-pulse">
-                            Leer más →
-                        </a>
+<div class="max-w-6xl mx-auto px-4 py-4 relative">
 
-                        <div class="flex gap-2">
-                            <fa-icon
-                                class="text-indigo-600 transition duration-300 transform hover:text-principalCustom hover:scale-110 hover:animate-bounce"
-                                [icon]="faEdit">
-                            </fa-icon>
-                            <fa-icon
-                                class="text-indigo-600 transition duration-300 transform hover:text-red-600 hover:scale-110 hover:animate-bounce"
-                                [icon]="faTrash">
-                            </fa-icon>
+    <!-- filtros -->
+    <div class="flex justify-center">
+
+        <button
+            class="group flex justify-center gap-2 text-md font-bold mb-4 text-indigo-600 px-4 py-2 rounded-lg transition duration-200 hover:text-green-400">
+            <fa-icon class="transition-transform duration-400 group-hover:text-green-400 group-hover:animate-bounce"
+                [icon]="faPlus">
+            </fa-icon>
+            <!--i18n-->
+            <span class="group-hover:text-green group-hover:animate-pulse">Agregar Tema</span>
+        </button>
+    </div>
+
+    <body class="max-w-6xl mx-auto py-4">
+        <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            <div *ngFor="let threads of news"
+                class="group bg-white shadow-md rounded-2xl overflow-hidden hover:shadow-xl transition dark:hover:shadow-military-blue-dark">
+                <div class="p-4 flex flex-col justify-between h-full bg-gray-100">
+                    <div class="p-2">
+                        <div>
+                            <h2 class="text-xl font-semibold text-gray-800 mb-2">{{ threads.title }}</h2>
+                            <p class="text-gray-600 text-sm mb-4 line-clamp-3">{{ threads.description }}</p>
                         </div>
-                    </div>
+                        <div class="flex justify-between items-center mt-4">
+                            <a [routerLink]="['/foro', threads.id]"
+                                class="text-indigo-600 hover:text-blue font-medium transition duration-300 transform hover:scale-110 hover:animate-pulse">
+                                <!--i18n-->
+                                Ir al tema →
+                            </a>
 
+                            <div class="flex gap-2">
+                                <fa-icon
+                                    class="text-indigo-600 transition duration-300 transform hover:text-yellow hover:scale-110 hover:animate-bounce"
+                                    [icon]="faEdit">
+                                </fa-icon>
+                                <fa-icon
+                                    class="text-indigo-600 transition duration-300 transform hover:text-red-600 hover:scale-110 hover:animate-bounce"
+                                    [icon]="faTrash">
+                                </fa-icon>
+                            </div>
+                        </div>
+
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</body>
+    </body>

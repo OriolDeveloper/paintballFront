@@ -1,8 +1,20 @@
-<div *ngIf="thread">
-    <h2>{{ thread.title }}</h2>
-    <p>{{ thread.description }}</p>
-    <a [routerLink]="['/foro', idThreads, thread.id]"
-        class="text-indigo-600 hover:text-indigo-800 font-medium transition duration-300 transform hover:scale-110 hover:animate-pulse">
-        Leer más →
-    </a>
+<app-header [title]="'Siente la adrenalina del paintball'"
+    [description]="'¡Disfruta de la sección de noticias de nuestra comunidad!'">
+</app-header>
+
+
+<div class="max-w-6xl mx-auto px-4 py-4 relative grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 p-4">
+    <div *ngFor="let thr of thread; let i = index">º
+        <div *ngIf="i % 2 === 0" class="relative group transform hover:rotate-[2deg] hover:scale-105 transition">
+            <div [ngClass]="colors[i % 3]" class="clip-triangle text-white p-6 shadow-lg">
+                <h3 class="font-bold text-lg">{{thr.title}}</h3>
+            </div>
+        </div>
+
+        <div *ngIf="!(i % 2 === 0)" class="relative group transform hover:rotate-[-3deg] hover:scale-105 transition">
+            <div [ngClass]="colors[i % 3]" class="clip-triangle text-white p-6 shadow-lg">
+                <h3 class="font-bold text-lg">{{thr.title}}</h3>
+            </div>
+        </div>
+    </div>
 </div>
