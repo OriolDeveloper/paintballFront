@@ -69,7 +69,8 @@ loadNews() {
       this.news = allNews.map(n => ({
         newsDto: n.newsDto,
         publishedAt: n.publishedAt,
-        updatedAt: n.updatedAt
+        updatedAt: n.updatedAt,
+        comments: n.comments || []
       }));
 
     this.news = this.news.sort((a, b) =>

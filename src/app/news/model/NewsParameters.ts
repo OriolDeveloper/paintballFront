@@ -1,3 +1,6 @@
+import { commentsDto } from "../../common/comment/model/commentsDto";
+
+
 // Tipado
 export interface NewsDto {
   id: any;
@@ -14,6 +17,7 @@ export interface NewsDto {
 
 export interface NewsParameters {
   newsDto: NewsDto;
+  comments: commentsDto[];
   publishedAt: any;
   updatedAt: any;
 }

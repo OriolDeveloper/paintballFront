@@ -1,4 +1,67 @@
-<div *ngIf="detailNews">
-    <h2>{{ detailNews.newsDto.title }}</h2>
-    <p>{{ detailNews.newsDto.description }}</p>
+<app-header
+  [title]="'Siente la adrenalina del paintball'"
+  [description]="'¡Disfruta de la sección de noticias de nuestra comunidad!'">
+</app-header>
+
+<div *ngIf="news" class="max-w-3xl mx-auto px-4 py-6 flex flex-col items-center space-y-8">
+
+  <!-- Tarjeta de noticia -->
+  <div class="bg-white-general rounded-3xl shadow-xl overflow-hidden w-full">
+    <div class="relative">
+      <img *ngIf="news.newsDto.image64"
+           [src]="'data:image/png;base64,' + news.newsDto.image64"
+           alt="Imagen noticia"
+           class="w-full h-64 sm:h-80 object-cover">
+      <div class="absolute bottom-0 left-0 bg-black bg-opacity-40 text-white p-3 w-full text-center">
+        <span class="font-medium text-sm">Publicado: {{ news.publishedAt | date:'medium' }}</span>
+      </div>
+    </div>
+    <div class="p-6 space-y-4 text-center">
+      <h1 class="text-2xl sm:text-3xl font-bold text-gray-900">{{ news.newsDto.title }}</h1>
+      <p class="text-gray-700 leading-relaxed">{{ news.newsDto.content }}</p>
+
+      <div class="flex flex-col sm:flex-row justify-center items-center gap-4 text-gray-500 text-sm mt-2">
+        <span>Autor: {{ news.newsDto.authorId || news.newsDto.authorId }}</span>
+        <span *ngIf="news.newsDto.isFeatured" class="text-yellow font-semibold">★ Destacado</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Sección de comentarios -->
+  <section class="space-y-6 w-full">
+    <h2 class="text-xl sm:text-2xl font-semibold text-gray-800 border-b pb-2 text-center">
+      Comentarios
+    </h2>
+
+    <div class="space-y-4 flex flex-col items-center w-full">
+      <ng-container *ngFor="let c of comments">
+        <app-comment
+          [comment]="c"
+          (reply)="openReply($event)"
+          class="w-full">
+        </app-comment>
+      </ng-container>
+    </div>
+  </section>
+
+  <!-- Formulario de nuevo comentario -->
+  <form class="mt-8 w-full max-w-xl flex flex-col items-center space-y-4" [formGroup]="commentForm" (ngSubmit)="sendComment()">
+    <label for="comment" class="block text-gray-800 font-semibold text-lg text-center">
+      Añadir un comentario
+    </label>
+    <textarea
+      id="comment"
+      formControlName="content"
+      rows="5"
+      placeholder="Comparte tu opinión..."
+      class="w-full p-4 border border-gray-200 rounded-3xl shadow-sm focus:outline-none focus:ring-2 focus:ring-blue focus:border-blue transition resize-none text-gray-900 placeholder-gray-400">
+    </textarea>
+
+    <button
+      type="submit"
+      [disabled]="commentForm.invalid"
+      class="w-full bg-military-blue hover:bg-military-blue-dark text-white font-semibold py-3 rounded-3xl shadow-lg transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed">
+      Enviar comentario
+    </button>
+  </form>
 </div>

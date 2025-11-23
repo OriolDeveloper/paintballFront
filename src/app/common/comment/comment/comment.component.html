@@ -1,0 +1,37 @@
+<div class="bg-white-general border border-gray-200 rounded-2xl shadow-sm p-4 w-full flex flex-col space-y-2">
+
+  <!-- Cabecera -->
+  <div class="flex items-center justify-between text-gray-500 text-sm">
+    <span class="font-semibold text-orange">{{ comment.username }}</span>
+    <span>{{ comment.createdAt | date:'short' }}</span>
+  </div>
+
+  <!-- Contenido -->
+  <p class="text-blue">{{ comment.content }}</p>
+
+  <!-- Botón Responder -->
+  <button class="text-blue hover:text-military-blue-dark text-sm font-medium self-start" (click)="toggle = !toggle">
+    Responder
+  </button>
+
+  <!-- Formulario de respuesta -->
+  <div *ngIf="toggle" class="mt-2 w-full">
+    <textarea #replyContent
+      class="w-full p-3 border border-gray-300 rounded-2xl shadow-sm focus:outline-none focus:ring-2 focus:ring-blue focus:border-blue transition resize-none text-gray-900 placeholder-gray-400"
+      rows="3"
+      placeholder="Escribe tu respuesta..."></textarea>
+
+    <button class="mt-2 bg-blue hover:bg-blue-dark text-white font-semibold py-2 px-4 rounded-2xl shadow transition"
+      (click)="sendReply(replyContent.value)">
+      Enviar respuesta
+    </button>
+  </div>
+
+  <!-- Replies -->
+  <div class="pl-6 mt-4 space-y-3">
+    <app-comment *ngFor="let r of comment.replies"
+      [comment]="r"
+      (reply)="onChildReply($event)">
+    </app-comment>
+  </div>
+</div>

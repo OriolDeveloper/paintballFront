@@ -4,6 +4,7 @@ import { environment } from '../../../environment/environment';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { FormGroup } from '@angular/forms';
+import { commentsDto } from '../../common/comment/model/commentsDto';
 
 @Injectable({
   providedIn: 'root'
@@ -24,11 +25,9 @@ export class NewsService {
     );
   }
 
-  /**getNew():Observable<NewsParameters> {
-    return this.http.get<NewsParameters>(`${this.apiUrl}allNews`).pipe(
-      tap(news => this.newOne.next(news))
-    );
-  }*/
+  getNew(id: number): Observable<NewsParameters> {
+    return this.http.get<NewsParameters>(`${this.apiUrl}getNew/${id}`);
+  }
 
   updateNew(news: any, userId: number) {
   const formData = new FormData();
@@ -80,5 +79,13 @@ return this.http.put(`${this.apiUrl}updateNew`, formData, {
     this.http.get<NewsParameters[]>(`${this.apiUrl}allNews`).subscribe(news => {
       this.newsListSave.next(news);
     });
+  }
+  
+  getComments(newsId: number) {
+    return this.http.get<commentsDto[]>(`${this.apiUrl}${newsId}/comments`);
+  }
+
+  addComment(req: any) {
+    return this.http.post(`${this.apiUrl}addComment`, req);
   }
 }

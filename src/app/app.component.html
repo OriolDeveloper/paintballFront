@@ -62,15 +62,16 @@
           <div class="xl:flex-1 xl:flex xl:justify-center">
             <ul
               class="m-2 xl:m-0 flex flex-col xl:flex-row xl:space-x-6 justify-center w-auto xl:px-4 font-semibold tracking-wide gap-4">
-              <li><a [routerLink]="'/noticias'" class="block nav-link underline-slide text-military-blue">Noticias</a>
+              <li><a [routerLink]="'/noticias'" class="block nav-link underline-slide text-military-blue" [ngClass]="{ 'text-white': isScrolled, 'text-military-blue': !isScrolled }">Noticias</a>
               </li>
-              <li><a [routerLink]="'/foro'" class="block nav-link underline-slide" [ngClass]="{ 'text-neutral': isScrolled, 'text-blue': !isScrolled }">Foro Comunidad</a></li>
-              <li><a [routerLink]="'/foro'" class="block nav-link underline-slide text-military-blue">Eventos</a>
+              <li><a [routerLink]="'/foro'" class="block nav-link underline-slide" [ngClass]="{ 'text-white': isScrolled, 'text-military-blue': !isScrolled }">Foro Comunidad</a></li>
+              <li><a [routerLink]="'/foro'" class="block nav-link underline-slide text-military-blue" [ngClass]="{ 'text-white': isScrolled, 'text-military-blue': !isScrolled }">Eventos</a>
               </li>
               <li>
                 <form class="ml-3">
                   <select id="underline_select"
-                    class="font-semibold nav-link underline-slide text-military-blue block py-2.5 ps-0 w-full text-sm text-body bg-transparent border-0 border-default-medium appearance-none focus:outline-none focus:ring-0 focus:border-brand peer">
+                    class="font-semibold nav-link underline-slide text-military-blue block py-2.5 ps-0 w-full text-sm text-body bg-transparent border-0 border-default-medium appearance-none focus:outline-none focus:ring-0 focus:border-brand peer"
+                    [ngClass]="{ 'text-white': isScrolled, 'text-military-blue': !isScrolled }">
                     <option class="bg-blue text-neutral" selected>Listados</option>
                     <option class="bg-blue text-neutral" value=" US">Listado Operadores</option>
                     <option class="bg-blue text-neutral" value="CA">Listado Equipos / Comunidades</option>
