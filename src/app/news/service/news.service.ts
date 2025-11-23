@@ -2,299 +2,83 @@ import { Injectable } from '@angular/core';
 import { NewsParameters } from '../model/NewsParameters';
 import { environment } from '../../../environment/environment';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable, tap } from 'rxjs';
+import { FormGroup } from '@angular/forms';
 
 @Injectable({
   providedIn: 'root'
 })
 export class NewsService {
 
-  private baseUrl = environment.rutaBack;
+  private apiUrl = environment.rutaBack + 'news/';
+  private newsListSave = new BehaviorSubject<NewsParameters[]>([]);
+  public newsList$ = this.newsListSave.asObservable();
 
+  private newOne = new BehaviorSubject<NewsParameters[]>([]);
+  public new$ = this.newsListSave.asObservable();
   constructor(private http: HttpClient) { }
 
-  get<T>(endpoint: string): Observable<T> {
-    if (environment.enableDebug) {
-      console.debug(`[GET] ${this.baseUrl}${endpoint}`);
+  getAllNews(): Observable<NewsParameters[]> {
+     return this.http.get<NewsParameters[]>(`${this.apiUrl}allNews`).pipe(
+      tap(news => this.newsListSave.next(news))
+    );
+  }
+
+  /**getNew():Observable<NewsParameters> {
+    return this.http.get<NewsParameters>(`${this.apiUrl}allNews`).pipe(
+      tap(news => this.newOne.next(news))
+    );
+  }*/
+
+  updateNew(news: any, userId: number) {
+  const formData = new FormData();
+  for (const key in news) {
+    if (news[key] !== null && news[key] !== undefined) {
+      formData.append(key, news[key]);
     }
-    return this.http.get<T>(this.baseUrl + endpoint);
   }
 
+  formData.append('userId', userId.toString());
 
+return this.http.put(`${this.apiUrl}updateNew`, formData, {
+      withCredentials: true,
+    }).pipe(
+      tap(() => this.refreshNews()) //Actualizamos la lista al editar
+    );
+}
 
-  //Hacer este objeto global  y acceder a el desde los distintos componentes.
-  private news: NewsParameters[] = [
-    {
-      "id": 1,
-      "name": "Gran Evento de Paintball",
-      "title": "Gran Evento de Paintballnow",
-      "description": "¡No te pierdas el torneo este fin de semana con premios increíbles!",
-      "imageName": "noName",
-      "imageBytes": "https://picsum.photos/1920/1080",
-      "dateCreated": "2025-11-10",
-      "dateModify": "2023-10-01",
-      "category": "Eventos",
-      "isFeatured": true
-    },
-    {
-      "id": 1,
-      "name": "Gran Evento de Paintball",
-      "title": "Gran Evento de Paintballnow",
-      "description": "¡No te pierdas el torneo este fin de semana con premios increíbles!",
-      "imageName": "noName",
-      "imageBytes": "https://picsum.photos/1920/1080",
-      "dateCreated": "2025-11-10",
-      "dateModify": "2023-10-01",
-      "category": "Eventos",
-      "isFeatured": false
-    },
-    {
-      "id": 2,
-      "name": "Nueva Tienda Abierta",
-      "title": "Nueva Tienda Abierta",
-      "description": "Abrimos flagship store con square y loadouts exclusivos.",
-      "imageName": "noName",
-      "imageBytes": "https://picsum.photos/1920/1080",
-      "dateCreated": "2023-10-02",
-      "dateModify": "2023-10-02",
-      "category": "Equipamiento",
-      "isFeatured": false
-    },
-    {
-      "id": 3,
-      "name": "Tips de Entrenamiento",
-      "title": "Tips de Entrenamiento",
-      "description": "Aprende tácticas y micro-movimientos usados por equipos PRO.",
-      "imageName": "noName",
-      "imageBytes": "https://picsum.photos/1920/1080",
-      "dateCreated": "2023-10-03",
-      "dateModify": "2023-10-03",
-      "category": "Tacticas",
-      "isFeatured": false
-    },
-    {
-      "id": 4,
-      "name": "Nuevo Campo Woodland",
-      "title": "Nuevo Campo Woodlandnow",
-      "description": "Más árboles, más cobertura y nuevos s de emboscada.",
-      "imageName": "noName",
-      "imageBytes": "https://picsum.photos/1920/1080",
-      "dateCreated": "2025-11-10",
-      "dateModify": "2023-10-04",
-      "category": "Terreno",
-      "isFeatured": false,
-    },
-    {
-      "id": 4,
-      "name": "Nuevo Campo Woodland",
-      "title": "Nuevo Campo Woodland",
-      "description": "Más árboles, más cobertura y nuevos s de emboscada.",
-      "imageName": "noName",
-      "imageBytes": "https://picsum.photos/1920/1080",
-      "dateCreated": "2023-10-04",
-      "dateModify": "2023-10-04",
-      "category": "Field & Terreno",
-      "isFeatured": false,
-    }, {
-      "id": 1,
-      "name": "Gran Evento de Paintball",
-      "title": "Gran Evento de Paintball",
-      "description": "¡No te pierdas el torneo este fin de semana con premios increíbles!",
-      "imageName": "noName",
-      "imageBytes": "https://picsum.photos/1920/1080",
-      "dateCreated": "2023-10-01",
-      "dateModify": "2023-10-01",
-      "category": "Eventos",
-      "isFeatured": false
-    },
-    {
-      "id": 2,
-      "name": "Nueva Tienda Abierta",
-      "title": "Nueva Tienda Abierta",
-      "description": "Abrimos flagship store con square y loadouts exclusivos.",
-      "imageName": "noName",
-      "imageBytes": "https://picsum.photos/1920/1080",
-      "dateCreated": "2023-10-02",
-      "dateModify": "2023-10-02",
-      "category": "Equipamiento",
-      "isFeatured": false
-    },
-    {
-      "id": 3,
-      "name": "Tips de Entrenamiento",
-      "title": "Tips de Entrenamiento",
-      "description": "Aprende tácticas y micro-movimientos usados por equipos PRO.",
-      "imageName": "noName",
-      "imageBytes": "https://picsum.photos/1920/1080",
-      "dateCreated": "2023-10-03",
-      "dateModify": "2023-10-03",
-      "category": "Tacticas",
-      "isFeatured": false
-    },
-    {
-      "id": 4,
-      "name": "Nuevo Campo Woodland",
-      "title": "Nuevo Campo Woodland",
-      "description": "Más árboles, más cobertura y nuevos s de emboscada.",
-      "imageName": "noName",
-      "imageBytes": "https://picsum.photos/1920/1080",
-      "dateCreated": "2023-10-04",
-      "dateModify": "2023-10-04",
-      "category": "Terreno",
-      "isFeatured": false,
-    },
-    {
-      "id": 4,
-      "name": "Nuevo Campo Woodland",
-      "title": "Nuevo Campo Woodland",
-      "description": "Más árboles, más cobertura y nuevos s de emboscada.",
-      "imageName": "noName",
-      "imageBytes": "https://picsum.photos/1920/1080",
-      "dateCreated": "2023-10-04",
-      "dateModify": "2023-10-04",
-      "category": "Field & Terreno",
-      "isFeatured": false,
-    },
-    {
-      "id": 1,
-      "name": "Gran Evento de Paintball",
-      "title": "Gran Evento de Paintball",
-      "description": "¡No te pierdas el torneo este fin de semana con premios increíbles!",
-      "imageName": "noName",
-      "imageBytes": "https://picsum.photos/1920/1080",
-      "dateCreated": "2023-10-01",
-      "dateModify": "2023-10-01",
-      "category": "Eventos",
-      "isFeatured": false
-    },
-    {
-      "id": 2,
-      "name": "Nueva Tienda Abierta",
-      "title": "Nueva Tienda Abierta",
-      "description": "Abrimos flagship store con square y loadouts exclusivos.",
-      "imageName": "noName",
-      "imageBytes": "https://picsum.photos/1920/1080",
-      "dateCreated": "2023-10-02",
-      "dateModify": "2023-10-02",
-      "category": "Equipamiento",
-      "isFeatured": false
-    },
-    {
-      "id": 3,
-      "name": "Tips de Entrenamiento",
-      "title": "Tips de Entrenamiento",
-      "description": "Aprende tácticas y micro-movimientos usados por equipos PRO.",
-      "imageName": "noName",
-      "imageBytes": "https://picsum.photos/1920/1080",
-      "dateCreated": "2023-10-03",
-      "dateModify": "2023-10-03",
-      "category": "Tacticas",
-      "isFeatured": false
-    },
-    {
-      "id": 4,
-      "name": "Nuevo Campo Woodland",
-      "title": "Nuevo Campo Woodland",
-      "description": "Más árboles, más cobertura y nuevos s de emboscada.",
-      "imageName": "noName",
-      "imageBytes": "https://picsum.photos/1920/1080",
-      "dateCreated": "2023-10-04",
-      "dateModify": "2023-10-04",
-      "category": "Terreno",
-      "isFeatured": false,
-    },
-    {
-      "id": 4,
-      "name": "Nuevo Campo Woodland",
-      "title": "Nuevo Campo Woodland",
-      "description": "Más árboles, más cobertura y nuevos s de emboscada.",
-      "imageName": "noName",
-      "imageBytes": "https://picsum.photos/1920/1080",
-      "dateCreated": "2023-10-04",
-      "dateModify": "2023-10-04",
-      "category": "Field & Terreno",
-      "isFeatured": false,
-    },
-    {
-      "id": 1,
-      "name": "Gran Evento de Paintball",
-      "title": "Gran Evento de Paintball",
-      "description": "¡No te pierdas el torneo este fin de semana con premios increíbles!",
-      "imageName": "noName",
-      "imageBytes": "https://picsum.photos/1920/1080",
-      "dateCreated": "2023-10-01",
-      "dateModify": "2023-10-01",
-      "category": "Eventos",
-      "isFeatured": false
-    },
-    {
-      "id": 2,
-      "name": "Nueva Tienda Abierta",
-      "title": "Nueva Tienda Abierta",
-      "description": "Abrimos flagship store con square y loadouts exclusivos.",
-      "imageName": "noName",
-      "imageBytes": "https://picsum.photos/1920/1080",
-      "dateCreated": "2023-10-02",
-      "dateModify": "2023-10-02",
-      "category": "Equipamiento",
-      "isFeatured": false
-    },
-    {
-      "id": 3,
-      "name": "Tips de Entrenamiento",
-      "title": "Tips de Entrenamiento",
-      "description": "Aprende tácticas y micro-movimientos usados por equipos PRO.",
-      "imageName": "noName",
-      "imageBytes": "https://picsum.photos/1920/1080",
-      "dateCreated": "2023-10-03",
-      "dateModify": "2023-10-03",
-      "category": "Tacticas",
-      "isFeatured": false
-    },
-    {
-      "id": 4,
-      "name": "Nuevo Campo Woodland",
-      "title": "Nuevo Campo Woodland",
-      "description": "Más árboles, más cobertura y nuevos s de emboscada.",
-      "imageName": "noName",
-      "imageBytes": "https://picsum.photos/1920/1080",
-      "dateCreated": "2023-10-04",
-      "dateModify": "2023-10-04",
-      "category": "Terreno",
-      "isFeatured": false,
-    },
-    {
-      "id": 4,
-      "name": "Nuevo Campo Woodland",
-      "title": "Nuevo Campo Woodlandultimo",
-      "description": "Más árboles, más cobertura y nuevos s de emboscada.",
-      "imageName": "noName",
-      "imageBytes": "https://picsum.photos/1920/1080",
-      "dateCreated": "2023-10-04",
-      "dateModify": "2023-10-04",
-      "category": "Field & Terreno",
-      "isFeatured": false,
-    },
+  
+  newAdd(formNews: FormGroup, idUsuario:number) {
+  //Transformamos nuestro formGroup en data para poder pasar imgs al back
+  const formData = new FormData();
 
-  ];
-
-  setNews(data: NewsParameters[]) {
-    this.news = data;
+  Object.entries(formNews.value).forEach(([key, value]) => {
+    // Si el campo es un File, lo agregamos como file
+    if (value instanceof File) {
+      formData.append(key, value);
+    } else if (value !== null && value !== undefined) {
+      formData.append(key, value.toString());
+    }
+    formData.append('authorId', idUsuario.toString());
+  });
+  return this.http.post(`${this.apiUrl}addNew`, formData).pipe(
+      tap(() => this.refreshNews())
+  );
   }
 
-  getNews(): NewsParameters[] {
-    return this.news;
-  }
+  deleteNew(id: number) {
+  return this.http.delete(`${this.apiUrl}deleteNew/${id}`, {responseType: 'text', withCredentials: true }).pipe(
+    tap(() => {
+      const current = this.newsListSave.value.filter(n => n.newsDto.id !== id);
+      this.newsListSave.next(current);
+      this.refreshNews();
+    })
+  );
+}
 
-  updateNews(data: NewsParameters[]) {
-    this.setNews(data);
-  }
-
-  clearNews() {
-    this.news = [];
-  }
-
-  getNewsId(id: number) {
-    return this.news.find(n => n.id === id);
+    refreshNews() {
+    this.http.get<NewsParameters[]>(`${this.apiUrl}allNews`).subscribe(news => {
+      this.newsListSave.next(news);
+    });
   }
 }

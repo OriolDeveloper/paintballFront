@@ -9,9 +9,8 @@
     <div class="flex flex-wrap gap-4 items-center bg-military-neutral dark:bg-military-neutral-dark p-4 rounded">
       <select [(ngModel)]="selectedCategory" (change)="applyFilters()">
         <option value="">Todas las categorías</option>
-        <option *ngFor="let cat of categorias" [value]="cat">{{ cat }}</option>
+        <option *ngFor="let cat of categories" [value]="cat.name">{{ cat.name }}</option>
       </select>
-
 
       <select [(ngModel)]="selectedDate" (change)="applyFilters()">
         <option value="">Cualquier fecha</option>
@@ -29,18 +28,24 @@
       <span class="group-hover:text-green-400 group-hover:animate-pulse">Agregar noticia</span>
     </button>
   </div>
-
+<div *ngIf="loading" class="flex justify-center items-center h-64">
+  <div class="spinner-border animate-spin inline-block w-8 h-8 border-4 rounded-full text-blue-600" role="status">
+    <span class="visually-hidden">Cargando...</span>
+  </div>
+</div>
+<div *ngIf="!loading">
   <div class="max-w-6xl mx-auto px-4 py-4 relative">
     <ng-container *ngFor="let block of blocks; let i = index">
-      <app-news-grid-a *ngIf="i % 2 === 0" [items]="block"></app-news-grid-a>
-      <app-news-grid-b *ngIf="i % 2 === 1" [items]="block"></app-news-grid-b>
+      <app-news-grid-a *ngIf="i % 2 === 0" [items]="block" [categories]="categories" (close)="closeCreateNewModal()" (edit)="openEditModal($event)" [user]="userDto!"></app-news-grid-a>
+      <app-news-grid-b *ngIf="i % 2 === 1" [items]="block" (close)="closeCreateNewModal()"></app-news-grid-b>
     </ng-container>
+    
 
 
     <!--<app-news-grid [news]="limitedNews | newsFilter:selectedCategory:selectedDate"></app-news-grid>!-->
 
     <!-- botón ver más -->
-    <div class="flex justify-center mt-10e">
+    <div class="flex justify-center mt-10">
       <button *ngIf="!finished" (click)="loadMore()" class="btn mt-10 mx-auto block bg-orange">
         Cargar más
       </button>
@@ -54,5 +59,11 @@
       </div>
     </div>
   </div>
-
-  <app-create-new [isShowCreateNewModal]="isShowCreateNewModal" (close)="closeCreateNewModal()"></app-create-new>
+</div>
+<app-create-new 
+  [isShowCreateNewModal]="isShowCreateNewModal"
+  [newsToEdit]="selectedNews"
+  [categories]="categories"
+  [user]="userDto!"
+  (close)="closeCreateNewModal()">
+</app-create-new>

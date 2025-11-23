@@ -3,19 +3,23 @@ import { HomeComponent } from './home/home.component'; // Ensure HomeComponent i
 import { NewsComponent } from './news/news.component';
 import { DetailNewsComponent } from './news/detail-news/detail-news.component';
 import { NotFoundComponent } from './common/not-found/not-found.component';
-import { NewsResolver } from './news/resolver/news.resolver';
 import { ForumComponent } from './forum/forum.component';
 import { ThreadsComponent } from './forum/threads/threads.component';
 import { ThreadComponent } from './forum/threads/thread/thread.component';
 import { ThreadsResolver } from './forum/threads/resolver/threads.resolver';
+import { NewsResolver } from './news/resolver/news.resolver';
 
 export const routes: Routes = [
   { path: 'home', component: HomeComponent, data: { noFooter: true } },
-  { path: 'noticias', component: NewsComponent },
   {
-    path: 'noticias/:idNoticia', component: DetailNewsComponent, resolve: {
-      detailNews: NewsResolver
+    path: 'noticias',
+    component: NewsComponent,
+    resolve: {
+      news: NewsResolver
     }
+  },
+  {
+    path: 'noticias/:idNoticia', component: DetailNewsComponent
   },
   { path: 'foro', component: ForumComponent },
   {

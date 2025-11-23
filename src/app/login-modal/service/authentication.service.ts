@@ -2,8 +2,9 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, catchError, Observable, of, tap } from 'rxjs';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { FormGroup } from '@angular/forms';
+import { environment } from '../../../environment/environment';
 
-
+  //Crearla en archivo externo
 export interface UserDto {
   id: number;
   email: string;
@@ -15,7 +16,7 @@ export interface UserDto {
   providedIn: 'root'
 })
 export class AuthenticationService {
-  private apiUrl = 'http://localhost:8080/api/authentication';
+  private apiUrl = environment.rutaBack + 'authentication/';
   public currentUser = new BehaviorSubject<UserDto | null>(null);
   user$ = this.currentUser.asObservable();
 
@@ -24,7 +25,7 @@ export class AuthenticationService {
 
   login(formLogin: FormGroup) {
     formLogin.get('email')?.setValue(formLogin.get('email')!.value.toLowerCase());
-    return this.http.post<UserDto>(`${this.apiUrl}/login`, formLogin.value, {
+    return this.http.post<UserDto>(`${this.apiUrl}login`, formLogin.value, {
       withCredentials: true,
       headers: { 'Content-Type': 'application/json' }
     }).pipe(
@@ -32,36 +33,20 @@ export class AuthenticationService {
     );
   }
 
-  loadUser() {
-    return this.http.get<UserDto>(`${this.apiUrl}/myUser`, { withCredentials: true })
-      .pipe(
-        tap(user => this.currentUser.next(user)),
-        catchError(() => {
-          this.currentUser.next(null);
-          return of(null);
-        })
-      );
-  }
-
-  register(email: string, username: string, password: string) {
-    const body = {
-      email,
-      username,
-      password
-    };
-
-    return this.http.post(`${this.apiUrl}/register`, body, {
-      withCredentials: true
-    });
+  register(formRegister: FormGroup) {
+  return this.http.post(`${this.apiUrl}register`, formRegister.value, {
+    withCredentials: true,
+    headers: { 'Content-Type': 'application/json' }
+  });
   }
 
   logout() {
-    return this.http.post(`${this.apiUrl}/logout`, {}, { withCredentials: true })
+    return this.http.post(`${this.apiUrl}logout`, {}, { withCredentials: true })
       .pipe(tap(() => this.currentUser.next(null)));
   }
 
   loadUserSession(): Observable<UserDto | null> {
-    return this.http.get<UserDto | null>(`${this.apiUrl}/myUser`, { withCredentials: true })
+    return this.http.get<UserDto | null>(`${this.apiUrl}myUser`, { withCredentials: true })
       .pipe(tap(user => this.currentUser.next(user)));
   }
 

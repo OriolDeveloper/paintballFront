@@ -66,6 +66,10 @@
     @apply text-military-blue dark:text-military-blue-dark;
   }
 
+  .ring-blue {
+     @apply ring-military-blue dark:ring-military-blue-dark;
+  }
+
   /* Verdes */
   .bg-green {
     @apply bg-military-green dark:bg-military-green-dark;
@@ -94,6 +98,11 @@
   }
 
   /* Negro */
+
+  .border-navbar {
+    @apply border-military-blackdark dark:border-military-blackdark-dark;
+  }
+
   .bg-navbar {
     @apply bg-military-blackdark dark:bg-military-blackdark-dark;
   }
@@ -101,6 +110,21 @@
   .text-navbar {
     @apply text-military-blackdark dark:text-military-blackdark-dark;
   }
+
+    /* White */
+
+  .border-white-general {
+    @apply border-military-gray dark:border-military-gray-dark;
+  }
+
+  .bg-white-general  {
+    @apply bg-military-gray dark:bg-military-gray-dark;
+  }
+
+  .text-white-general {
+    @apply text-military-gray dark:text-military-gray-dark;
+  }
+  
 }
 
 @layer components {
@@ -113,7 +137,6 @@
     @apply px-4 py-2 text-white transition transform duration-300 ease-out hover:-translate-y-0.5 hover:scale-[1.02] hover:shadow-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-yellow-400;
   }
 
-  /* Neon glow accent for icons/buttons */
   .neon-glow {
     transition: box-shadow .3s ease, transform .3s ease;
   }
@@ -127,7 +150,6 @@
     box-shadow: 0 8px 28px rgba(0, 200, 255, 0.18), 0 0 18px rgba(0, 200, 255, 0.14);
   }
 
-  /* Underline slide pseudo-element */
   .underline-slide {
     position: relative;
 

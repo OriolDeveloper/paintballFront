@@ -17,7 +17,7 @@ export class ThreadsService {
       description: '¡No te pierdas el torneo este fin de semana con premios increíbles!',
       imageName: 'noName',
       imageBytes: 'https://st5.depositphotos.com/2544079/66276/v/450/depositphotos_662769366-stock-illustration-soldier-automatic-weapon-helmet-paintball.jpg',
-      dateCreated: '2023-10-01',
+      publishedAt: '2023-10-01',
       dateModify: '2023-10-01',
       categoryThread: 'Eventos'
     },
@@ -28,7 +28,7 @@ export class ThreadsService {
       description: '¡No te pierdas el torneo este fin de semana con premios increíbles!',
       imageName: 'noName',
       imageBytes: 'https://st5.depositphotos.com/2544079/66276/v/450/depositphotos_662769366-stock-illustration-soldier-automatic-weapon-helmet-paintball.jpg',
-      dateCreated: '2023-10-01',
+      publishedAt: '2023-10-01',
       dateModify: '2023-10-01',
       categoryThread: 'Eventos'
     },
@@ -39,7 +39,7 @@ export class ThreadsService {
       description: 'Aprendé tácticas y estrategias para dominar en el campo.',
       imageName: 'noName',
       imageBytes: 'https://st5.depositphotos.com/2544079/66276/v/450/depositphotos_662769366-stock-illustration-soldier-automatic-weapon-helmet-paintball.jpg',
-      dateCreated: '2023-10-01',
+      publishedAt: '2023-10-01',
       dateModify: '2023-10-01',
       categoryThread: 'Eventos'
 
@@ -51,7 +51,7 @@ export class ThreadsService {
       description: '¡No te pierdas el torneo este fin de semana con premios increíbles!',
       imageName: 'noName',
       imageBytes: 'https://st5.depositphotos.com/2544079/66276/v/450/depositphotos_662769366-stock-illustration-soldier-automatic-weapon-helmet-paintball.jpg',
-      dateCreated: '2023-10-01',
+      publishedAt: '2023-10-01',
       dateModify: '2023-10-01',
       categoryThread: 'Eventos'
     },
@@ -62,7 +62,7 @@ export class ThreadsService {
       description: '¡No te pierdas el torneo este fin de semana con premios increíbles!',
       imageName: 'noName',
       imageBytes: 'https://st5.depositphotos.com/2544079/66276/v/450/depositphotos_662769366-stock-illustration-soldier-automatic-weapon-helmet-paintball.jpg',
-      dateCreated: '2023-10-01',
+      publishedAt: '2023-10-01',
       dateModify: '2023-10-01',
       categoryThread: 'Eventos'
     },
@@ -73,7 +73,7 @@ export class ThreadsService {
       description: 'Aprendé tácticas y estrategias para dominar en el campo.',
       imageName: 'noName',
       imageBytes: 'https://st5.depositphotos.com/2544079/66276/v/450/depositphotos_662769366-stock-illustration-soldier-automatic-weapon-helmet-paintball.jpg',
-      dateCreated: '2023-10-01',
+      publishedAt: '2023-10-01',
       dateModify: '2023-10-01',
       categoryThread: 'Eventos'
 

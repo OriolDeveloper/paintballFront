@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { CategoryColorPipe } from '../../pipes/category-color-pipe';
@@ -13,6 +13,8 @@ import { MilitaryAgoPipe } from '../../../common/pipes/military-ago.pipe';
 })
 export class AppNewsGridBComponent {
   @Input() items!: NewsParameters[];
+  @Output() isShowCreateNewModal: any;
+  @Output() close = new EventEmitter<void>();
 
   get gridMain() { return this.items[0]; }
   get gridBlocks() { return this.items.slice(1, 4); }
@@ -20,4 +22,8 @@ export class AppNewsGridBComponent {
   get sideCards() { return this.items.slice(5, 8); }
   get gridTop3() { return this.items.slice(7, 10); }
   get gridBottom2() { return this.items.slice(10, 12); }
+
+    closeModal() {
+    this.close.emit();
+  }
 }

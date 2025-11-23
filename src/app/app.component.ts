@@ -52,7 +52,6 @@ export class AppComponent implements OnInit {
       },
       error: err => this.userDto = null
     });
-
     this.authService.loadUserSession().subscribe();
   }
 

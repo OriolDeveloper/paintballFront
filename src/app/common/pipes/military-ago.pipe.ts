@@ -35,6 +35,6 @@ export class MilitaryAgoPipe implements PipeTransform {
       }
     }
     if (result === 'now') return 'ahora';
-    return `hace ${result}`;
+    return `Hace ${result}`;
   }
 }

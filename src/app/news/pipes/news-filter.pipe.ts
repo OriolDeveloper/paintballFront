@@ -15,13 +15,13 @@ export class NewsFilterPipe implements PipeTransform {
 
     return list.filter(item => {
       const catOK = !cat || item?.category?.toLowerCase() === cat;
-      const dateOK = !date || this.isInDateRange(item.dateCreated, date);
+      const dateOK = !date || this.isInDateRange(item.publishedAt, date);
       return catOK && dateOK;
     });
   }
 
-  private isInDateRange(dateCreated: string, selected: string): boolean {
-    const created = new Date(dateCreated);
+  private isInDateRange(publishedAt: string, selected: string): boolean {
+    const created = new Date(publishedAt);
     const now = new Date();
 
     switch (selected) {

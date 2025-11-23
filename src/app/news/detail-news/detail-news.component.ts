@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { NewsService } from '../service/news.service';
@@ -12,13 +12,12 @@ import { NewsParameters } from '../model/NewsParameters';
   standalone: true
 })
 export class DetailNewsComponent implements OnInit {
-
-  detailNews = {} as NewsParameters;
+  @Input() detailNews = {} as NewsParameters;
 
   constructor(private route: ActivatedRoute, private newsService: NewsService) { }
 
   ngOnInit() {
     const id = Number(this.route.snapshot.paramMap.get('idNoticia'));
-    this.detailNews = this.newsService.getNewsId(id)!;
+    
   }
 }

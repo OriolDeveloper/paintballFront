@@ -5,6 +5,7 @@ import { ErrorMessageFormComponent } from '../common/form-error/error-message-fo
 import { confirmPasswordValidator } from '../common/form-error/form-error';
 import { AuthenticationService, UserDto } from './service/authentication.service';
 import { Router } from '@angular/router';
+import { CategoryService } from '../news/service/category.service';
 
 @Component({
   selector: 'app-authentication',
@@ -23,7 +24,7 @@ export class AuthenticationModalComponent {
   formRegister: FormGroup;
 
 
-  constructor(private fb: FormBuilder, private auth: AuthenticationService, private router: Router) {
+  constructor(private fb: FormBuilder, private auth: AuthenticationService, private router: Router, private categoryService: CategoryService) {
     auth.user$.subscribe(currentUser => {
       this.userDto = currentUser;
     });
@@ -75,7 +76,7 @@ export class AuthenticationModalComponent {
         });
         break;
       case 'register':
-        this.auth.register(this.formRegister.get('email')?.value.toLowerCase(), this.formRegister.get('username')?.value, this.formRegister.get('password')?.value).subscribe({
+        this.auth.register(this.formRegister).subscribe({
           next: (data) => this.closeModal(),
           error: (err) => {
             this.error = err?.error?.message || 'Error en el registro';

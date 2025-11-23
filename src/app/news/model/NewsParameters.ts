@@ -1,12 +1,19 @@
-export interface NewsParameters {
+// Tipado
+export interface NewsDto {
   id: any;
-  name: any;
   title: any;
   description: any;
+  content: any;
   imageName: any;
   imageBytes: any;
-  dateCreated: any;
-  dateModify: any;
-  category: any;
+  image64: any;
+  categoryId: any;
+  authorId: any;
   isFeatured: Boolean;
+}
+
+export interface NewsParameters {
+  newsDto: NewsDto;
+  publishedAt: any;
+  updatedAt: any;
 }
